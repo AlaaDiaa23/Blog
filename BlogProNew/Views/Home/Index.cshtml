@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BlogPro.Models.Post>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewBag.Description = "Blog ";
+    ViewBag.KeyWords = "Blog news ";
+}
+
+<h1>All Posts</h1>
+
+
+
+    <form asp-action="Index" method="post">
+        <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" id="term" name="term" />
+            <input type="submit" value="Search" class="btn btn-outline-primary" />
+
+        </div>
+    </form>
+<br />
+<br />
+<br />
+    @if (@Model.Count() == 0)
+    {
+        <p class="text-info">No Post Added....</p>
+    }
+
+    else
+    {
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-4">
+            <a href="#!"><img class="card-img-top" src="/Images/@item.Images" alt="..."  height="300"/></a>
+            <div class="card-body">
+                <div class="small text-muted">@item.DateTime</div>
+                <h2 class="card-title h4">@item.Title</h2>
+                <p class="card-text">@item.Description</p>
+                <a class="btn btn-primary" asp-action="Details" asp-controller="Home"asp-route-id="@item.Id">Read more →</a>
+            </div>
+        </div>}
+</div>
+    }
